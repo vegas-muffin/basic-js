@@ -1,43 +1,41 @@
 const CustomError = require("../extensions/custom-error");
 
 module.exports = function getSeason(date) {
-  if (date === undefined || date.length === 0) { 
-    throw new Error('Unable to determine the time of year!');
-  } else if (date === null) {
-    throw new Error('Empty data!!!');
-  } else if (typeof(date.getMonth) === 'function') { 
-    let mm = date.getMonth();
-    let dd = date.getDate();
-    let dlina = new Date(23 / 25 / 2014);
-    let winter = "winter";
-    let spring = "spring";
-    let summer = "summer";
-    let autumn = "autumn";
-        switch (mm) {
-        case 0:
-        case 1:
-          return winter;
-          //break;
-        case 2:
-        case 3:
-        case 4:
-          return spring;
-          //break;
-        case 5:
-        case 6:
-        case 7:
-          return summer;
-          //break;
-        case 8:
-        case 9:
-        case 10:
-          return autumn;
-          //break;
-        case 11:
-          return winter;
-          //break;
-        default:
-          throw new Error('Unable to determine the time of year!');
-      }
-    } else throw new Error('Unable to determine the time of year!');
+  if (!date) return "Unable to determine the time of year!";
+  if (typeof date !== "object") throw new Error("Error!!!");
+  if (new Date().toString() === date.toString()) throw new Error("Error!!!");
+
+  let mounth = date.getMonth();
+
+  switch (mounth) {
+    case 11:
+      return "winter";
+    case 1:
+      return "winter";
+    case 0:
+      return "winter";
+
+    case 10:
+      return "fall";
+    case 9:
+      return "fall";
+    case 8:
+      return "fall";
+
+    case 7:
+      return "summer";
+    case 6:
+      return "summer";
+    case 5:
+      return "summer";
+
+    case 4:
+      return "spring";
+    case 3:
+      return "spring";
+    case 2:
+      return "spring";
+    default:
+      return "winter";
+  }
 };
